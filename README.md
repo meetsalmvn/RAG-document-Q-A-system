@@ -2,7 +2,7 @@
 
 A Retrieval-Augmented Generation (RAG) system that answers questions about your PDF documents — research papers, manuals, textbooks, reports — using Google's free-tier Gemini API. Every answer is grounded strictly in the uploaded documents and cited with source + page number, reducing hallucination compared to asking an LLM directly.
 
-**[Add your deployed Streamlit Cloud link here]**
+**🔗 Live demo: [rag-document-q-a-system.streamlit.app](https://rag-document-q-a-system.streamlit.app/)**
 
 ![Demo1](docs/demo1.gif) <!-- record a short screen capture and add it here -->
 ![Demo2](docs/demo2.gif)
