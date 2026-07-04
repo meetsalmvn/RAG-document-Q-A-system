@@ -1,6 +1,7 @@
 """
 Chunk extracted page text into overlapping windows suitable for embedding.
 """
+import uuid
 from typing import List, Dict
 
 
@@ -17,12 +18,15 @@ def chunk_pages(
 
     Overlap preserves context across chunk boundaries so an answer
     that straddles two chunks isn't lost.
+
+    chunk_id is a UUID rather than a sequential counter so IDs stay
+    unique across multiple calls (e.g. processing PDFs in separate
+    batches against a persisted vector store).
     """
     if chunk_overlap >= chunk_size:
         raise ValueError("chunk_overlap must be smaller than chunk_size")
 
     chunks = []
-    chunk_counter = 0
 
     for page in pages:
         text = page["text"]
@@ -34,9 +38,8 @@ def chunk_pages(
             chunk_text = text[start:end].strip()
 
             if chunk_text:
-                chunk_counter += 1
                 chunks.append({
-                    "chunk_id": f"chunk_{chunk_counter}",
+                    "chunk_id": f"chunk_{uuid.uuid4().hex}",
                     "text": chunk_text,
                     "page": page["page"],
                     "source": page["source"],
