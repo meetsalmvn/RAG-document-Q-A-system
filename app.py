@@ -47,7 +47,7 @@ def main():
     with st.sidebar:
         st.header("Setup")
 
-        aapi_key = get_api_key()
+        api_key = get_api_key()
         if api_key:
             st.success("Gemini API key loaded from server secrets.")
             api_key_input = api_key
