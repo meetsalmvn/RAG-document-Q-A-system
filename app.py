@@ -48,14 +48,18 @@ def main():
         st.header("Setup")
 
         api_key = get_api_key()
-        api_key_input = st.text_input(
-            "Gemini API Key",
-            value=api_key or "",
-            type="password",
-            help="Get a free key at https://aistudio.google.com/apikey",
-        )
-        if api_key_input:
+        if api_key:
+            st.success("Gemini API key loaded from server secrets.")
+            api_key_input = api_key
             genai.configure(api_key=api_key_input)
+        else:
+            api_key_input = st.text_input(
+                "Gemini API Key",
+                type="password",
+                help="Get a free key at https://aistudio.google.com/apikey",
+            )
+            if api_key_input:
+                genai.configure(api_key=api_key_input)
 
         st.divider()
         st.header("Upload PDFs")
