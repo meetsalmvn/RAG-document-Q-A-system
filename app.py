@@ -19,7 +19,7 @@ st.set_page_config(page_title="PDF Q&A with Gemini", page_icon="📄", layout="w
 
 
 def get_api_key() -> str:
-    """Get API key from env var, Streamlit secrets, or sidebar input."""
+    """Get API key from env var or Streamlit secrets."""
     key = os.getenv("GEMINI_API_KEY")
     if not key:
         try:
@@ -82,6 +82,8 @@ def main():
                             tmp_path = tmp.name
 
                         pages = extract_text_from_pdf(tmp_path)
+                        for p in pages:
+                            p["source"] = uf.name  # use original filename, not the temp path
                         chunks = chunk_pages(pages, chunk_size=chunk_size)
                         all_chunks.extend(chunks)
                         os.unlink(tmp_path)
